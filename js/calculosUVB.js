@@ -2,9 +2,9 @@
 // Definir UVB
 export const uvb = 11552; // 2025
 
-export const sistematizacionNorteDeSantander = 33333; // 2024
+export const sistematizacionNorteDeSantander = 47450; // 2025
 
-export const impuestoRegistroSinCuantia = 217333; // 2024
+export const impuestoRegistroSinCuantia = 237450; // 2025
 
 // CALCULAR REGISTRO Y RENOVACION DE LA MATRICULA MERCANTIL DE ACUERDO CON EL VALOR UVB DEL AÑO
 export function calcularRegistroYRenovacionDeLaMatriculaMercantil(valorActivos) {
