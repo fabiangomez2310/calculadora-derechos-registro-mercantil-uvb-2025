@@ -1,13 +1,16 @@
-
 // Definir UVB
-export const uvb = 11552; // 2025
+const uvb = 11552; // 2025
 
-export const sistematizacionNorteDeSantander = 47450; // 2025
+const smmlv = 1423500; // 2025
 
-export const impuestoRegistroSinCuantia = 237450; // 2025
+const sistematizacionNorteDeSantander = 47450; // 2024
+
+const impuestoRegistroSinCuantia = 237450; // 2024
 
 // CALCULAR REGISTRO Y RENOVACION DE LA MATRICULA MERCANTIL DE ACUERDO CON EL VALOR UVB DEL AÑO
-export function calcularRegistroYRenovacionDeLaMatriculaMercantil(valorActivos) {
+export function calcularRegistroYRenovacionDeLaMatriculaMercantil(
+  valorActivos
+) {
   let tarifaAplicada;
 
   // Primer rango: Hasta 6.500 UVB
@@ -40,11 +43,13 @@ export function calcularRegistroYRenovacionDeLaMatriculaMercantil(valorActivos) 
       753 * uvb + (0.0125 * uvb * (valorActivos - 2000000 * uvb)) / 1000000;
   }
 
-  return Math.round(tarifaAplicada / 1000) * 1000;
+  return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
 // CALCULAR REGISTRO Y RENOVACION DE LOS ESTABLECIMIENTOS, AGENCIAS O SUCURSALES MISMA JURISDICCION
-export function calcularRenovacionEstablecimientoMismaJurisdiccion(valorActivos) {
+export function calcularRenovacionEstablecimientoMismaJurisdiccion(
+  valorActivos
+) {
   let tarifaAplicada;
 
   // Primer rango: Hasta 6.500 UVB
@@ -76,11 +81,13 @@ export function calcularRenovacionEstablecimientoMismaJurisdiccion(valorActivos)
     tarifaAplicada = 40 * uvb;
   }
 
-  return Math.round(tarifaAplicada / 1000) * 1000;
+  return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
 // CALCULAR REGISTRO Y RENOVACION DE LOS ESTABLECIMIENTOS, AGENCIAS O SUCURSALES DIFERENTE JURISDICCION
-export function calcularRenovacionEstablecimientoDiferenteJurisdiccion(valorActivos) {
+export function calcularRenovacionEstablecimientoDiferenteJurisdiccion(
+  valorActivos
+) {
   let tarifaAplicada;
 
   // Primer rango: Hasta 6.500 UVB
@@ -112,12 +119,13 @@ export function calcularRenovacionEstablecimientoDiferenteJurisdiccion(valorActi
     tarifaAplicada = 80 * uvb;
   }
 
-  return Math.round(tarifaAplicada / 1000) * 1000;
+  return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
 // CALCULAR VALOR DEL FORMULARIO RUES DE ACUERDO CON EL VALOR UVB DEL AÑO
 export function calcularValorFormularioRues() {
-  return Math.ceil((uvb * 0.7) / 100) * 100;
+  let tarifaAplicada = uvb * 0.7;
+  return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
 // CALCULAR VALOR DEL CERTIFICADO SEGUN TIPO PERSONA DE ACUERDO CON EL VALOR UVB DEL AÑO
@@ -132,29 +140,40 @@ export function calcularValorCertificado(tipoPersona) {
     console.error("Tipo de persona invalido.");
     return 0;
   }
-
-  return Math.ceil(valorCertificado / 100) * 100;
+  return redondeoSegunDecreto1074(valorCertificado);
 }
 
 // CALCULAR VALOR INSCRIPCION DE DOCUMENTOS
 
-export function calcularValorInscripcionDocumento(){
-    return Math.round (uvb * 6 / 1000) * 1000;
+export function calcularValorInscripcionDocumento() {
+  let tarifaAplicada = uvb * 6;
+  return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
-
-// CALCULA VALOR IMPUESTO DE REGISTRO (ESPERAR INFORMACIOON DE LA GOBERNACION NORTE DE SANTANDER)
-
-export function calcularValorImpuestoRegistroCuantia(valorCapSuscrito){
-  return (valorCapSuscrito * 0.7 ) / 100 + sistematizacionNorteDeSantander;
+// CALCULAR VALOR IMPUESTO DE REGISTRO GOBERNACION DE NORTE DE SANTANDER
+export function calcularValorImpuestoRegistroCuantia(valorCapSuscrito) {
+  return (valorCapSuscrito * 0.7) / 100 + sistematizacionNorteDeSantander;
 }
 
-export function calcularValorImpuestoRegistroSinCuantia(){
+export function calcularValorImpuestoRegistroSinCuantia() {
   return impuestoRegistroSinCuantia;
 }
 
+// REDONDEO SEGUN DECRETO 1074 DE 2015 ART. 2.2.2.46.1.10
 
+function redondeoSegunDecreto1074(valor) {
+  let tope = (smmlv * 3) / 100;
 
+  let tarifaAplicada;
+
+  if (valor <= tope) {
+    tarifaAplicada = Math.round(valor / 100) * 100;
+  } else {
+    tarifaAplicada = Math.round(valor / 1000) * 1000;
+  }
+
+  return tarifaAplicada;
+}
 
 
 
