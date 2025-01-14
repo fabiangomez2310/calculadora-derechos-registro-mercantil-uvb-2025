@@ -41,9 +41,9 @@ export function calcularRegistroYRenovacionDeLaMatriculaMercantil(
   else {
     tarifaAplicada =
       753 * uvb + (0.0125 * uvb * (valorActivos - 2000000 * uvb)) / 1000000;
-      
-      // se establece como tarifa maxima hasta 1.000 uvb
-      tarifaAplicada = limiteTarifaAplicada(tarifaAplicada);
+
+    // se establece como tarifa maxima hasta 1.000 uvb
+    tarifaAplicada = limiteTarifaAplicada(tarifaAplicada);
   }
 
   return redondeoSegunDecreto1074(tarifaAplicada);
@@ -131,16 +131,21 @@ export function calcularValorFormularioRues() {
   return redondeoSegunDecreto1074(tarifaAplicada);
 }
 
-// CALCULAR VALOR DEL CERTIFICADO SEGUN TIPO PERSONA DE ACUERDO CON EL VALOR UVB DEL AÑO
-export function calcularValorCertificado(tipoPersona) {
+// CALCULAR VALOR DEL CERTIFICADO SEGUN EL TIPO DE CERTIFICADO DE ACUERDO CON EL VALOR UVB DEL AÑO
+export function calcularValorCertificado(tipoCertificado) {
   let valorCertificado;
 
-  if (tipoPersona == "PN") {
+  if (
+    tipoCertificado == "PN" ||
+    tipoCertificado == "EST" ||
+    tipoCertificado == "AGE" ||
+    tipoCertificado == "SUC"
+  ) {
     valorCertificado = 0.5 * uvb;
-  } else if (tipoPersona == "PJ") {
+  } else if (tipoCertificado == "PJ" || tipoCertificado == "ESP") {
     valorCertificado = 1 * uvb;
   } else {
-    console.error("Tipo de persona invalido.");
+    console.error("Tipo de Certificado invalido.");
     return 0;
   }
   return redondeoSegunDecreto1074(valorCertificado);
@@ -178,15 +183,12 @@ function redondeoSegunDecreto1074(valor) {
   return tarifaAplicada;
 }
 
-
 // se establece como tarifa maxima hasta 1.000 uvb
-function limiteTarifaAplicada(valor){
+function limiteTarifaAplicada(valor) {
   let limite = 1000 * uvb;
-  if(valor > limite){
+  if (valor > limite) {
     return limite;
-  }else{
+  } else {
     return valor;
   }
-
 }
-

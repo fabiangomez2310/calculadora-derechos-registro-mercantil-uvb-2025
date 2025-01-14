@@ -171,6 +171,3 @@ function mostrarResultadoModal() {
     var myModal = new bootstrap.Modal(document.getElementById("resultadoModal"));
     myModal.show();
 }
-
-
-
