@@ -127,9 +127,8 @@
             <!-- Resultado -->
             <p class="mt-3" id="constitucion-resultado"></p>        
             </div> 
-        </div>
-    </div>
-    <!-- Tab de Compraventa -->
+
+            <!-- Tab de Compraventa -->
             <div class="tab-pane fade p-4" id="compraventa" role="tabpanel" aria-labelledby="compraventa-tab">
                 <h3>Compraventa de Establecimiento</h3>
 
@@ -140,7 +139,7 @@
                 </div>
                 <!-- Matricula de Propietario -->
                 <div class="mb-3">
-                    <label for="matricular-propietario" class="form-label">¿Matricula Propietario?</label>
+                    <label for="matricular-propietario" class="form-label">¿Liquidar Matricula Comprador?</label>
                     <select id="matricular-propietario" class="form-control">
                         <option value="SI">SI</option>
                         <option value="NO">NO</option>
@@ -152,6 +151,8 @@
                 <!-- Resultado -->
                 <p class="mt-3" id="compraventa-resultado"></p>        
             </div> 
+        </div>
+    </div>
 
     <!-- Modal resultado renovacion y matricula -->
     <div class="modal fade" id="resultadoModal" tabindex="-1" aria-labelledby="resultadoModalLabel" aria-hidden="true">
@@ -180,5 +181,6 @@
     <script type="module" src="js/renovacion.js"></script>
     <script type="module" src="js/constitucion.js"></script>
     <script type="module" src="js/compraventa.js"></script>
+    
 </body>
 </html>
