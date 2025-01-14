@@ -41,6 +41,9 @@ export function calcularRegistroYRenovacionDeLaMatriculaMercantil(
   else {
     tarifaAplicada =
       753 * uvb + (0.0125 * uvb * (valorActivos - 2000000 * uvb)) / 1000000;
+      
+      // se establece como tarifa maxima hasta 1.000 uvb
+      tarifaAplicada = limiteTarifaAplicada(tarifaAplicada);
   }
 
   return redondeoSegunDecreto1074(tarifaAplicada);
@@ -176,4 +179,14 @@ function redondeoSegunDecreto1074(valor) {
 }
 
 
+// se establece como tarifa maxima hasta 1.000 uvb
+function limiteTarifaAplicada(valor){
+  let limite = 1000 * uvb;
+  if(valor > limite){
+    return limite;
+  }else{
+    return valor;
+  }
+
+}
 
